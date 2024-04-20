@@ -1,24 +1,24 @@
 h2 {
-    color: blue;
-    font-weight: normal;
+  color: blue;
+  font-weight: normal;
 }
 
 input:invalid {
-    box-shadow: 0 0 5px 1px red;
+  box-shadow: 0 0 5px 1px red;
 }
 
 input:focus:invalid {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .flex-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .error_message {
-    color: #df5000;
-    font: 1.2em "Fira Sans", sans-serif;
+  color: #df5000;
+  font: 1.2em "Fira Sans", sans-serif;
 }

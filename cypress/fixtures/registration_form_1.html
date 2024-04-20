@@ -1,72 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Cypress advanced registration from</title>
-</head>
-<body>
-<h1>Registration form number 1</h1>
-<nav>Home</nav>
-<nav>Contacts</nav>
-<div>
+  </head>
+  <body>
+    <h1>Registration form number 1</h1>
+    <nav>Home</nav>
+    <nav>Contacts</nav>
     <div>
+      <div>
         <p>This is simple registration form</p>
+      </div>
     </div>
-</div>
-<img src="cerebrum_hub_logo.png" width="178" height="166" alt="cerebrum_hub_logo">
-<a href="https://cerebrumhub.com/">Cerebrum Hub homepage</a>
-<div class="flex-container">
-    <form id="applicationForm">
+    <img src="cerebrum_hub_logo.png" width="178" height="166" alt="cerebrum_hub_logo" />
+    <a href="https://cerebrumhub.com/">Cerebrum Hub homepage</a>
+    <div class="flex-container">
+      <form id="applicationForm">
         <h2>Input username</h2>
         <p>Username string should consist only of alphabetic and numeric characters</p>
         <label for="username">Username:</label>
-        <input class="input" type="text" id="username" name="username" placeholder="John01" min="1" max="50"
-               required
-               onChange="checkInputPattern('username')" pattern='[a-zA-Z0-9_]+' title="Please add username">
+        <input
+          class="input"
+          type="text"
+          id="username"
+          name="username"
+          placeholder="John01"
+          min="1"
+          max="50"
+          required
+          onChange="checkInputPattern('username')"
+          pattern="[a-zA-Z0-9_]+"
+          title="Please add username"
+        />
 
         <h2>First name</h2>
         <p>Please enter your first name</p>
         <label for="firstName">First name:</label>
-        <input type="text" id="firstName" name="firstName" placeholder="John" max="50"
-               onChange="checkInputPattern('firstName')" pattern='[a-zA-Z]*' title="Add first name">
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          placeholder="John"
+          max="50"
+          onChange="checkInputPattern('firstName')"
+          pattern="[a-zA-Z]*"
+          title="Add first name"
+        />
 
         <h2>Last name</h2>
         <p>Please enter your last name</p>
         <label for="lastName">Last name:</label>
-        <input type="text" data-testid="lastNameTestId" id="lastName" name="lastName" placeholder="Smith" min="1"
-               max="30"
-               onChange="checkInputPattern('lastName')" pattern='[a-zA-Z]*' title="Add last name">
+        <input
+          type="text"
+          data-testid="lastNameTestId"
+          id="lastName"
+          name="lastName"
+          placeholder="Smith"
+          min="1"
+          max="30"
+          onChange="checkInputPattern('lastName')"
+          pattern="[a-zA-Z]*"
+          title="Add last name"
+        />
 
         <h2>Phone number</h2>
         <p>Only numeric data can be used</p>
         <label for="phoneNumber">Phone number:</label>
-        <input class="input" type="number" id="phoneNumber" data-testid="phoneNumberTestId" placeholder="8775048423"
-               maxlength="10" title="Add phone number">
+        <input
+          class="input"
+          type="number"
+          id="phoneNumber"
+          data-testid="phoneNumberTestId"
+          placeholder="8775048423"
+          maxlength="10"
+          title="Add phone number"
+        />
 
         <h2>Password section</h2>
         <p>NB! Passwords should match</p>
         <!--    Will also check that both passwords are similar-->
-        <p id="password_error_message" class="error_message">
-            Passwords do not match!
-        </p>
+        <p id="password_error_message" class="error_message">Passwords do not match!</p>
         <div class="flex-container">
-            <label>Password:
-                <input class="input" name="password" type="password" placeholder="Qwerty"/> </label><br/>
-            <label>Confirm:
-                <input class="input" name="confirm" type="password" onChange="onChange()" placeholder="Qwerty"/>
-            </label><br/>
+          <label>Password: <input class="input" name="password" type="password" placeholder="Qwerty" /> </label><br />
+          <label
+            >Confirm:
+            <input class="input" name="confirm" type="password" onChange="onChange()" placeholder="Qwerty" /> </label
+          ><br />
         </div>
         <!--    Submit button, as part of form section - part of passwords validation as well-->
         <button class="submit_button" onclick="successMessage()">Submit</button>
-        <p id="input_error_message" class="error_message">
-            Mandatory input field is not valid or empty!
-        </p>
+        <p id="input_error_message" class="error_message">Mandatory input field is not valid or empty!</p>
         <div id="success_message">
-            <span class="close_button" onclick="this.parentElement.style.display='none';">&times;</span>
-            User successfully submitted registration
+          <span class="close_button" onclick="this.parentElement.style.display='none';">&times;</span>
+          User successfully submitted registration
         </div>
-    </form>
-</div>
-</body>
-<script src="registration.js"></script>
-<link href="registration.css" rel="stylesheet" type="text/css">
+      </form>
+    </div>
+  </body>
+  <script src="registration.js"></script>
+  <link href="registration.css" rel="stylesheet" type="text/css" />
 </html>
