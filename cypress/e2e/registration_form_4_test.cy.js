@@ -37,20 +37,20 @@ describe("Input fields", () => {
 
   it("Email input should support correct pattern", () => {
     // Check regex
-    // input invalid email
-    // check that email element has red border outline
-    // submit button should not be active
     cy.get("#email").should("have.attr", "pattern").should("contain", "[a-z0-9]+@[a-z0-9]+\\.[a-z]{2,4}$");
-    cy.get("#email").type("invalid");
+    // input invalid email
+    cy.get("#email").type("incorrectEmailForm");
+    // check that email element has red border outline
     cy.get("h2").contains("Password").click();
     cy.get("#email").should("have.css", "box-shadow").should("contain", "rgb(255, 0, 0)");
+    // submit button should not be active
     cy.get(".submit_button").should("not.be.enabled");
   });
 
   it("User cannot submit empty registration form", () => {
     // Do not add any information
     // Check that submit button is not enabled
-    cy.get(".submit_button").should("be.visible");
+    cy.get(".submit_button").should("not.be.enabled");
   });
 
   it("BMW should not be listed in the list of the cars", () => {

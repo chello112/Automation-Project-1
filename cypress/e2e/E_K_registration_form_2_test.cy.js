@@ -122,7 +122,7 @@ describe("Section 1: Functional tests", () => {
   });
 });
 
-it.only("Fulfill all the mandatory fields with function and submit the form", () => {
+it("Fulfill all the mandatory fields with function and submit the form", () => {
   // Add test steps for filling in ONLY mandatory fields, using a function
   inputValidData();
 });
@@ -226,6 +226,7 @@ describe("Section 2: Visual tests", () => {
     cy.get('input[type="radio"]').eq(0).should("not.be.checked");
   });
 
+  // 4.///////////////////////////////////////////////////////////////////////////////////////
   // Create test similar to previous one verifying check boxes
   it("Check that radio button of web languages list is correct", () => {
     // Array of found elements with given selector has 3 elements in total
@@ -276,7 +277,7 @@ describe("Section 2: Visual tests", () => {
       });
   });
 
-  // Create test similar to previous one
+  // 5./////////////////////////////////////////////////////////////////////////
   it.only("Animal dropdown is correct", () => {
     // Here are given different solutions how to get the length of array of elements in Animals dropdown
     // Next 2 lines of code do exactly the same!
