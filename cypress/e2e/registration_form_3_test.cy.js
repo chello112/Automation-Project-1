@@ -6,26 +6,87 @@ beforeEach(() => {
 
 /*
 BONUS TASK: add visual tests for registration form 3
-Task list:
-* Create test suite for visual tests for registration form 3 (describe block)
-* Create tests to verify visual parts of the page:
-    * radio buttons and its content
-    * dropdown and dependencies between 2 dropdowns:
-        * list of cities changes depending on the choice of country
-        * if city is already chosen and country is updated, then city choice should be removed
-    * checkboxes, their content and links
-    * email format
  */
+describe("First section: Visual tests", () => {
+  it("Check that each radio button has different text", () => {
+    // Get all radio buttons
+    cy.get('input[type="radio"]').then((radios) => {
+      // Iterate over each radio button
+      radios.each((index, radio) => {
+        // Extract the text of the radio button
+        const text = radio.nextElementSibling.textContent.trim();
+        // Log the text to the Cypress Command Log
+        cy.log(`Radio button ${index + 1} text: ${text}`);
+      });
+    });
+  });
+
+  it("Check that there are 4 options for radio buttons", () => {
+    // Get all radio buttons
+    cy.get('input[type="radio"]').then((radios) => {
+      // Extract the text of each radio button
+      const texts = radios.toArray().map((radio) => radio.nextElementSibling.textContent.trim());
+      // Count the number of unique texts
+      const uniqueTexts = [...new Set(texts)];
+      // Assert that there are exactly 4 unique options
+      expect(uniqueTexts).to.have.lengthOf(4);
+    });
+  });
+  it("Check that one radio button should deselect other", () => {
+    // Get all radio buttons
+    cy.get('input[type="radio"]').then((radios) => {
+      // Select the first radio button
+      const firstRadio = radios.first();
+      cy.wrap(firstRadio).check().should("be.checked");
+
+      // Select the second radio button
+      const secondRadio = radios.eq(1); // Assuming there are at least two radio buttons
+      cy.wrap(secondRadio).check().should("be.checked");
+
+      // Ensure the first radio button is unchecked
+      cy.wrap(firstRadio).should("not.be.checked");
+    });
+  });
+
+  // Define a mapping of countries to cities
+  const citiesOfCountry = {
+    Spain: ["Malaga", "Madrid", "Valencia", "Corralejo"],
+    Estonia: ["Tallinn", "Haapsalu", "Tartu"],
+    Austria: ["Vienna", "Salzburg", "Innsbruck"],
+  };
+
+  // Iterate over each country in the mapping
+  Object.keys(citiesOfCountry).forEach((country) => {
+    it(`Check correct cities for ${country}`, () => {
+      // Get the country dropdown and select the current country
+      cy.get("#country").select(country);
+      // Capture the list of cities for the current country
+      cy.get("#city option").then(($cityOptions) => {
+        // Filter out any empty or non-city options
+        const cities = $cityOptions
+          .toArray()
+          .map((city) => city.textContent.trim())
+          .filter((city) => city); // Filter out empty strings
+        // Verify the list of cities for the current country
+        expect(cities).to.eql(citiesOfCountry[country]);
+      });
+    });
+  });
+
+  it("Check for checkboxes and their content", () => {
+    cy.get('input[type="checkbox"][ng-model="checkbox"]').parent().should("contain", "Accept our privacy policy");
+
+    cy.get('input[type="checkbox"]').eq(1).parent().should("contain", "Accept our cookie policy");
+  });
+
+  it("Displays 'Email is required.' message when email field is empty", () => {
+    cy.get('input[name="email"]').type("blablabla").clear();
+    cy.get("#emailAlert").should("contain", "Email is required.").and("be.visible");
+  });
+});
 
 /*
 BONUS TASK: add functional tests for registration form 3
-Task list:
-* Create second test suite for functional tests
-* Create tests to verify logic of the page:
-    * all fields are filled in + corresponding assertions
-    * only mandatory fields are filled in + corresponding assertions
-    * mandatory fields are absent + corresponding assertions (try using function)
-    * add file functionality(google yourself for solution!)
  */
 describe("Second section: Functional tests", () => {
   it("User can submit form with all fields", () => {
@@ -84,14 +145,12 @@ const testEmail = faker.internet.email();
 // Function to fulfill name input section
 function writeRandomName() {
   cy.get("#name").type(testName);
-  // Assert that name field is mandatory
   cy.get("#name").should("have.attr", "required");
 }
 
 // Function to fulfill email input section
 function writeRandomEmail() {
   cy.get('[name="email"]').type(testEmail);
-  // Assert that email field is mandatory
   cy.get('[name="email"]').should("have.attr", "required");
 }
 
@@ -103,7 +162,6 @@ function selectRandomCountryAndCity(countryDropdownSelector, cityDropdownSelecto
     const randomCountryIndex = Math.floor(Math.random() * countryOptions.length);
     const randomCountryValue = countryOptions[randomCountryIndex].value;
     cy.get(countryDropdownSelector).select(randomCountryValue);
-    // Assert that the country dropdown has options
     cy.get("#country").should("not.have.value", "");
 
     // Wait for city dropdown to be populated based on selected country
@@ -115,7 +173,6 @@ function selectRandomCountryAndCity(countryDropdownSelector, cityDropdownSelecto
       const randomCityIndex = Math.floor(Math.random() * cityOptions.length);
       const randomCityValue = cityOptions[randomCityIndex].value;
       cy.get(cityDropdownSelector).select(randomCityValue);
-      // Assert that the city dropdown has options after selecting a country
       cy.get("#city").should("not.have.value", "");
     });
   });
@@ -213,5 +270,5 @@ function formSubmission() {
   // Submitting the form
   cy.get('[type="submit"]').eq(1).click();
   // Check that currently opened page URL is correct
-  cy.url().should("contain", "http://localhost:61715/cypress/fixtures/");
+  cy.url().should("contain", "http://localhost:64239/cypress/fixtures/");
 }

@@ -129,12 +129,12 @@ it("Fulfill all the mandatory fields with function and submit the form", () => {
 
 // 4./////////////////////////////////////////////////////////////////////////////
 // Add at least 1 test for checking some mandatory field's absence
-it("User cannot submit the form if one or multiple mandatory fields are missing", () => {
+it.only("User cannot submit the form if one or multiple mandatory fields are missing", () => {
   // Assert that one mandatory field will be absent from the mandatory fields
   cy.get("#username").type("Pets123");
   cy.get("#email").type("okokokho@hot.ee");
   cy.get('input[name="name"]').type("Peeter");
-  // Last name is missing => cy.get('input[name="lastName"]').type("Rebane");
+  cy.get('input[name="lastName"]').clear(); // Last name is empty
   cy.get('input[data-testid="phoneNumberTestId"]').type("56565656");
   cy.get("h2").contains("Password").click();
   // Assert that submit button is disabled
